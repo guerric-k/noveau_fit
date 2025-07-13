@@ -56,7 +56,6 @@
             </div>
             <div class="col-12 col-lg-4 my-auto py-1 py-lg-0">
                 <form method="GET" action="#">
-                    {% csrf_token %}
                     <div class="input-group w-100">
                         <input class="form-control border border-black rounded-0" type="text" name="q"
                             placeholder="Search store">
@@ -94,19 +93,19 @@
                         </div>
                     </li>
                     <li class="list-inline-item dropdown">
-                        <a class="text-black nav-link dropdown-toggle d-flex align-items-center" href="#" id="langDropdown"
-                            role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            🌐 {% get_current_language as LANGUAGE_CODE %}
+                        <a class="text-black nav-link dropdown-toggle d-flex align-items-center" href="#" id="langDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-language"></i>{% get_current_language as LANGUAGE_CODE %}
                             {% if LANGUAGE_CODE == 'fr' %} 🇫🇷
                             {% else %} 🇬🇧
                             {% endif %}
                         </a>
                         <div class="dropdown-menu" aria-labelledby="langDropdown">
-                           <form action="{% url 'set_language' %}" method="post" class="px-3">
-                             {% csrf_token %}
-                            <button type="submit" name="language" value="en" class="dropdown-item">🇬🇧 English</button>
-                            <button type="submit" name="language" value="fr" class="dropdown-item">🇫🇷 Français</button> 
-                           </form> 
+                            <form action="{% url 'set_language' %}" method="post" class="px-3">
+                                {% csrf_token %}
+                                <button type="submit" name="language" value="en" class="dropdown-item">🇬🇧 English</button>
+                                <button type="submit" name="language" value="fr" class="dropdown-item">🇫🇷 Français</button>
+                            </form>
                         </div>
                     </li>
                     <li class="list-inline-item">
@@ -133,8 +132,8 @@
                     aria-controls="main-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
-
+                {% include 'includes/mobile_top_header.html' %}
+                {% include 'includes/main_nav.html' %}
             </nav>
         </div>
         <div id="delivery-banner" class="row text-center">
@@ -144,21 +143,13 @@
         </div>
     </header>
 
-  {% if messages %}
+{% if messages %}
   <div class="message-container">
-      {% for message in messages %}
-          {% with message.level as level %}
-              {% if level == 40 %}
-                  {% include 'includes/toasts/toast_error.html' %}
-              {% elif level == 30 %}
-                  {% include 'includes/toasts/toast_warning.html' %}
-              {% elif level == 25 %}
-                  {% include 'includes/toasts/toast_success.html' %}
-              {% else %}
-                  {% include 'includes/toasts/toast_info.html' %}
-              {% endif %}
-          {% endwith %}
-      {% endfor %}
+
+    {% for message in messages %}
+     {% include 'includes/toasts/toast_success.html' %}
+    {% endfor %}
+
   </div>
   {% endif %}
 
