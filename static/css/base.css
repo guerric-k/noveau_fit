@@ -7,7 +7,7 @@ html {
 body {
     position: relative;
     height: calc(100vh - 164px);
-    color: #fff;
+    color: black;
     font-family: 'Lato';
     overflow: hidden;
 }
